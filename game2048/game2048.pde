@@ -9,7 +9,7 @@ void setup() {
 }
 
 void draw() {
-  background(30, 30, 30);
+  background(253, 222, 179);
 }
 void startgame() {
 }

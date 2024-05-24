@@ -1,4 +1,6 @@
-void startGame() {
+int scoreIncrement() {
 }
-void playGame() {
+void combineValues(int[][] grid, int lastDirection) {
+}
+int generateNumber(int[][] grid) {
 }

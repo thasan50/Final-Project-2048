@@ -7,7 +7,7 @@ void combineValues(int[][] grid, int lastDirection) {
 int generateNumber(int[][] grid) {
   return 1;
 }
-int keyPressed() {
+int keyPress() {
   if (key == CODED) {
     if (keyCode == UP) {
       return 1;

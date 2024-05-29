@@ -1,11 +1,18 @@
 int scoreIncrement() {
+  //Should this even exist? Reconsidering
   return 1;
 }
 void combineValues(int[][] grid, int lastDirection) {
   square(30.0, 30.0, 30.0);
 }
-int generateNumber(int[][] grid) {
-  return 1;
+int generateNumber() {
+  int a = (int)random(2);
+  if (a == 0) {
+    return 2;
+  }
+  else {
+    return 4;
+  }
 }
 int keyPress() {
   if (key == CODED) {

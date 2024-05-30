@@ -14,7 +14,7 @@ int generateNumber() {
     return 4;
   }
 }
-int keyPress() {
+int keyPress() { //Is this working? I need to create a grid first
   if (key == CODED) {
     if (keyCode == UP) {
       return 1;

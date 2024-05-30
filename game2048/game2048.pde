@@ -5,6 +5,7 @@ int lastDirection;
 private ArrayList<ArrayList<Integer>> spaces; //Should I make a new class for cors?
 int val = 0;
 boolean playing = false;
+int size;
 
 void setup() {
   size(800, 800);
@@ -18,12 +19,18 @@ void draw() {
   fill(30, 50, 80);
   text("Current Score", 400, 60);
   text("High Score", 600, 60);
+  stroke(0);
+  for (int i = 0; i < 10; i++) {
+    line(i*100, 0, i*100, height);
+    line(0, i*100, width, i*100);
+  }
   
 }
 
 void startgame() {
   if (mouseButton == LEFT && mouseX == 400 && mouseY == 400) {
     playing = true;
+    
     playGame();
   }
 }

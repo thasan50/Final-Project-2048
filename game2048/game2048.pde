@@ -30,6 +30,7 @@ void draw() {
     rect(350, 350, 100, 100);
     fill(30, 50, 80);
     text("Start", 367, 410);
+    startgame();
   }
   
 }
@@ -37,12 +38,21 @@ void draw() {
 void startgame() {
   if (mouseButton == LEFT && (mouseX > 350 && mouseX < 450) && (mouseY > 350 && mouseY < 450)) {
     playing = true;
-    
+    //Give option to set grid size, then use an nxn for loop to set the coordinates for
+    //Spaces
+    size = 4;
+    spaces = new ArrayList<ArrayList<Integer>>();
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        spaces.add(i, j);
+      }
+    }
     playGame();
   }
 }
 void playGame() {
   int nextVal = generateNumber(); //Maybe we could move these 3 lines to support section
+  
   int b = (int)random(spaces.size());
   grid[spaces.get(b).get(0)][spaces.get(b).get(1)] = nextVal;
   currCounter += nextVal;

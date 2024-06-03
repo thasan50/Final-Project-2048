@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 private int[][] grid;
 private int currCounter = 0;
 private int highCounter = 0;
@@ -9,7 +11,7 @@ int size;
 //Let's start with a size at 4x4
 
 void setup() {
-  size(800, 800);
+  size(800, 850);
 }
 
 void draw() {
@@ -21,9 +23,12 @@ void draw() {
   text("Current Score", 400, 60); 
   text("High Score", 600, 60);
   stroke(0);
-  for (int i = 0; i < 10; i++) { //Creates temporary grid
-    line(i*100, 0, i*100, height);
-    line(0, i*100, width, i*100);
+  for (int i = 0; i < 4; i++) { //Creates temporary grid
+    line(i*200, 900, i*200, 200); //Vertical
+    line(0, i*200, width, i*200); //Horizontal
+  }
+  if (playing) {
+    playGame();
   }
   if (!playing) { //Creates startbutton
     fill(250, 250, 250);
@@ -41,21 +46,26 @@ void startgame() {
     //Give option to set grid size, then use an nxn for loop to set the coordinates for
     //Spaces
     size = 4;
+    grid = new int[size][size];
     spaces = new ArrayList<ArrayList<Integer>>();
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
-        spaces.add(i, j);
+        ArrayList<Integer> temp = new ArrayList<Integer>(Arrays.asList(i, j));
+        spaces.add(temp);
       }
     }
-    playGame();
   }
 }
 void playGame() {
   int nextVal = generateNumber(); //Maybe we could move these 3 lines to support section
-  
   int b = (int)random(spaces.size());
   grid[spaces.get(b).get(0)][spaces.get(b).get(1)] = nextVal;
+  spaces.remove(b);
   currCounter += nextVal;
+  System.out.println(Arrays.toString(grid[0]));
+  System.out.println(Arrays.toString(grid[1]));
+  System.out.println(Arrays.toString(grid[2]));
+  System.out.println(Arrays.toString(grid[3]));
   while (playing == true) {
     if (spaces.size() > 0) {
       if (keyPress() == 1) {
@@ -70,12 +80,14 @@ void playGame() {
       else if (keyPress() == 4) {
         //Shift values left
       }
+      playing = false;
       //Idea is to randomly get a value from spaces list, use the coordinates to place
       //Another random value in the grid
     }
     nextVal = generateNumber();
     b = (int)random(spaces.size());
     grid[spaces.get(b).get(0)][spaces.get(b).get(1)] = nextVal;
+    spaces.remove(b);
     currCounter += nextVal;
   }
   

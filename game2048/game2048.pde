@@ -35,7 +35,7 @@ void draw() {
       }
       playGame();
   }
-  if (!playing) { //Creates startbutton
+  else if (!playing) { //Creates startbutton
     fill(250, 250, 250);
     rect(350, 350, 100, 100);
     fill(30, 50, 80);
@@ -46,7 +46,7 @@ void draw() {
 }
 
 void startgame() {
-  if (mouseButton == LEFT && (mouseX > 350 && mouseX < 450) && (mouseY > 350 && mouseY < 450)) {
+  if (mousePressed == true && (mouseX > 350 && mouseX < 450) && (mouseY > 350 && mouseY < 450)) {//Need a mousePressed function
     playing = true;
     //Give option to set grid size, then use an nxn for loop to set the coordinates for
     //Spaces
@@ -78,25 +78,25 @@ void playGame() {
   System.out.println(Arrays.toString(grid[3]));
   while (playing == true) {
     if (spaces.size() > 0) {
-      if (keyPress() == 1) {
-        for (int i = 0; i < grid.length; i++) {
-          for (int j = 0; j < grid[0].length; j++) {
-            if (grid[i][j] != 0) {
-              
-            }
-          }
+      int k = keyPress();
+        if (k == 1) {
+          for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+              if (grid[i][j] != 0) {
+                  checkFile(k, i, j, grid);
+               }
+             }
+           }
+         }
+        else if (k == 2) {
+          //Shift values right
         }
-      }
-      else if (keyPress() == 2) {
-        //Shift values right
-      }
-      else if (keyPress() == 3) {
-        //Shift values down
-      }
-      else if (keyPress() == 4) {
-        //Shift values left
-      }
-      playing = false;
+        else if (k == 3) {
+          //Shift values down
+        }
+        else if (k == 4) {
+          //Shift values left
+        }
       //Idea is to randomly get a value from spaces list, use the coordinates to place
       //Another random value in the grid
     }
@@ -106,6 +106,3 @@ void playGame() {
     spaces.remove(b);
     currCounter += nextVal;
   }
-  
-   
-}

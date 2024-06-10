@@ -3,13 +3,13 @@ import java.util.Arrays;
 private int[][] grid;
 private int currCounter = 0;
 private int highCounter = 0;
-int lastDirection;
+int lastDir;
 private ArrayList<ArrayList<Integer>> spaces; //Should I make a new class for cors?
 private ArrayList<ArrayList<Integer>> blocks; //I think I might need an arrayList to keep
 //track of all the numbered blocks, alongside the one that checks for empty spaces
 //to create numbers at
 int val = 0;
-boolean playing = false;
+boolean playing;
 int size;
 //Let's start with a size at 4x4
 
@@ -78,23 +78,22 @@ void playGame() {
   System.out.println(Arrays.toString(grid[3]));
   while (playing == true) {
     if (spaces.size() > 0) {
-      int k = keyPress();
-        if (k == 1) {
+        if (lastDir == 1) { //How to get k to register once as soon as keyPress() is activated and get the value returned
           for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
               if (grid[i][j] != 0) {
-                  checkFile(k, i, j, grid);
+                  checkFile(lastDir, i, j, grid);
                }
              }
            }
          }
-        else if (k == 2) {
+        else if (lastDir == 2) {
           //Shift values right
         }
-        else if (k == 3) {
+        else if (lastDir == 3) {
           //Shift values down
         }
-        else if (k == 4) {
+        else if (lastDir == 4) {
           //Shift values left
         }
       //Idea is to randomly get a value from spaces list, use the coordinates to place
@@ -106,3 +105,20 @@ void playGame() {
     spaces.remove(b);
     currCounter += nextVal;
   }
+}
+void keyPress() { //Is this working? I need to create a grid first
+  if (key == CODED) {
+    if (keyCode == UP) {
+      lastDir = 1;
+    }
+    else if (keyCode == RIGHT) {
+      lastDir = 2;
+    }
+    else if (keyCode == DOWN) {
+      lastDir = 3;
+    }
+    else if (keyCode == LEFT) {
+      lastDir = 4;
+    }
+  }
+}

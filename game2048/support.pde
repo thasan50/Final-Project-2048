@@ -52,7 +52,25 @@ int checkFile(int dir, int x, int y, int[][] grid) {//The idea here is that I wo
 //Looking into keyCode right now, for arrow keys
 /*
 Notepad: 
--Semicolon error
+-What do all of my functions do?
+-Setup - creates screen
+-Draw should create a constantly updating grid of four by four squares along with 
+updating the score counter. Base state should have a start button and the grid is still
+oresent with the last game. Clicking start button should refresh the screen and place
+a random pair of numbers on the board.
+-Startgame should be the supplementary function for draw, because it's used to check
+if the start button is pressed. If pressed, playing becomes true, an empty grid is
+created, and playgame is activated. The empty list of spaces coordinates is also filled out
+-Keypress detects whether a key is pressed and returns a corresponding output. If the wrong
+key is pressed, keypress shouldn't do anything.
+-Generatenumber should return a random 2 or 4 block every time the key is pressed
+-Checkfile check the spaces in the same file as each block. If it's possible to move
+in the corresponding direction, it should check the following spaces until it encounters
+a failure. If the block fails, it should move the value to the last position saved. 
+Saved positions should start at the original position. 
+-Playgame is the biggest function
+
+
 
 
 */

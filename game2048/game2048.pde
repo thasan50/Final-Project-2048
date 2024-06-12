@@ -1,25 +1,22 @@
-import java.util.Arrays;
-
-private int[][] grid;
+//Edit this so that all unnecessary functions are removed and so graphics are instated. 
 private int currCounter = 0;
 private int highCounter = 0;
 int lastDir;
-private ArrayList<ArrayList<Integer>> spaces; //Should I make a new class for cors?
-private ArrayList<ArrayList<Integer>> blocks; //I think I might need an arrayList to keep
 //track of all the numbered blocks, alongside the one that checks for empty spaces
 //to create numbers at
-int val = 0;
 boolean playing;
 int size;
+Block[][] blocks;
 //Let's start with a size at 4x4
 
 void setup() {
   size(800, 850);
+  background(253, 222, 179); //Background color as classic 2048
+  textSize(30);
+  size = 0; //Use to check whether the game is over or not
 }
 
 void draw() {
-  background(253, 222, 179); //Background color as classic 2048
-  textSize(30);
   fill(253, 222, 179); //Box for the scores
   rect(390, 30, 360, 40);
   rect(390, 70, 360, 40);
@@ -44,21 +41,18 @@ void draw() {
   }
   
 }
-
+void generateBlock() {
+  
+}
+boolean canPlay() {
+  
+}
 void startgame() {
   if (mousePressed == true && (mouseX > 350 && mouseX < 450) && (mouseY > 350 && mouseY < 450)) {//Need a mousePressed function
     playing = true;
     //Give option to set grid size, then use an nxn for loop to set the coordinates for
     //Spaces
-    size = 4;
-    grid = new int[size][size];
-    spaces = new ArrayList<ArrayList<Integer>>();
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-        ArrayList<Integer> temp = new ArrayList<Integer>(Arrays.asList(i, j));
-        spaces.add(temp);
-      }
-    }
+    
   }
 }
 void playGame() {
@@ -76,49 +70,130 @@ void playGame() {
   System.out.println(Arrays.toString(grid[1]));
   System.out.println(Arrays.toString(grid[2]));
   System.out.println(Arrays.toString(grid[3]));
-  while (playing == true) {
-    if (spaces.size() > 0) {
-        if (lastDir == 1) { //How to get k to register once as soon as keyPress() is activated and get the value returned
-          for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-              if (grid[i][j] != 0) {
-                  checkFile(lastDir, i, j, grid);
-               }
-             }
-           }
-         }
-        else if (lastDir == 2) {
-          //Shift values right
-        }
-        else if (lastDir == 3) {
-          //Shift values down
-        }
-        else if (lastDir == 4) {
-          //Shift values left
-        }
-      //Idea is to randomly get a value from spaces list, use the coordinates to place
-      //Another random value in the grid
-    }
-    nextVal = generateNumber();
-    b = (int)random(spaces.size());
-    grid[spaces.get(b).get(0)][spaces.get(b).get(1)] = nextVal;
-    spaces.remove(b);
-    currCounter += nextVal;
-  }
 }
-void keyPress() { //Is this working? I need to create a grid first
-  if (key == CODED) {
-    if (keyCode == UP) {
-      lastDir = 1;
-    }
-    else if (keyCode == RIGHT) {
-      lastDir = 2;
-    }
-    else if (keyCode == DOWN) {
-      lastDir = 3;
-    }
-    else if (keyCode == LEFT) {
-      lastDir = 4;
-    }
+
+void keyPressed() { //So that took a damn while
+  if (keyCode == UP) {
+    lastDir = 1;
   }
+  else if (keyCode == RIGHT) {
+    lastDir = 2;
+  }
+  else if (keyCode == DOWN) {
+    lastDir = 3;
+  }
+  else if (keyCode == LEFT) {
+    lastDir = 4; 
+  }
+  switch (lastDir) {
+    case 1: //UP Case
+      for (int i = 1; i < 4; i++) {
+        int a = i;
+        for (int j = 0; j < 4; j++) {
+          if (blocks[i][j].number != 0) {
+            while (a > 0) {
+              if (blocks[a-1][j].number == 0) {
+                blocks[a-1][j].number = blocks[a][j].number;
+                blocks[a][j].number = 0;
+                draw();
+                a--;
+              }
+              else if (blocks[a][j].number == blocks[a-1][j].number) {
+                blocks[a-1][j].number *= 2;
+                blocks[a][j].number = 0;
+                draw();
+                break;
+              }
+              else {
+                break;
+              }
+            }
+          }
+        }
+      }
+      break;
+    case 2: //RIGHT Case
+      for (int i = 0; i < 4; i++) {
+        for (int j = 2; j >= 0; j--) {
+          int b = j;
+          if (blocks[i][j].number != 0) {
+            while (b < 3) {
+              if (blocks[i][b+1].number == 0) {
+                blocks[i][b+1].number = blocks[i][b].number;
+                blocks[i][b].number = 0;
+                draw();
+                b++;
+              }
+              else if (blocks[i][b].number == blocks[i][b+1].number) {
+                blocks[i][b+1].number *= 2;
+                blocks[i][b].number = 0;
+                draw();
+                break;
+              }
+              else {
+                break;
+              }
+              
+            }
+          }
+        }
+      }
+    case 3: //DOWN Case
+      for (int i = 2; i >= 0; i--) {
+        int c = i;
+        for (int j = 0; j < 4; j++) {
+          if (blocks[i][j].number != 0) {
+            while (c < 3) {
+              if (blocks[c+1][j].number == 0) {
+                blocks[c+1][j].number = blocks[c][j].number;
+                blocks[c][j].number = 0;
+                draw();
+                c++;
+              }
+              else if (blocks[c][j].number == blocks[c+1][j].number) {
+                blocks[c+1][j].number *= 2;
+                blocks[c][j].number = 0;
+                draw();
+                break;
+              }
+              else {
+                break;
+              }
+            }
+          }
+        }
+      }
+    case 4: //LEFT Case
+      for (int i = 0; i < 4; i++) {
+        for (int j = 1; j < 4; j++) {
+          int d = j;
+          if (blocks[i][j].number == 0) {
+            while (d > 0) {
+              if (blocks[i][d-1].number == 0) {
+                blocks[i][d-1].number = blocks[i][d].number;
+                blocks[i][d].number = 0;
+                draw();
+                d--;
+              }
+              else if (blocks[i][d-1].number == blocks[i][d].number) {
+                blocks[i][d-1].number *= 2;
+                blocks[i][d].number = 0;
+                draw();
+                break;
+              }
+              else {
+                break;
+              }
+            }
+          }
+        }
+      }
+      
+  }
+  generateBlock();
+  draw();
+  if (!canPlay()) {
+    
+  }
+  
 }

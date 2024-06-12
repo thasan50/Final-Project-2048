@@ -1,4 +1,10 @@
-//Edit this so that all unnecessary functions are removed and so graphics are instated. 
+//Edit this so that all unnecessary functions are removed and so graphics are instated.
+/*
+So with setup I want to create my score box, my background color, everything
+besides the grid. Now with draw, I want to create different colored squares
+based on the numbers. If I click new game, I want to reset all the values
+besides highCounter. That might involve calling setup
+*/
 private int currCounter = 0;
 private int highCounter = 0;
 int lastDir;
@@ -41,17 +47,40 @@ void draw() {
   }
   
 }
-void generateBlock() {
-  
+void generateBlock() { //Ought to be completed
+  int r = ((int)random(2)+1)*2;
+  while (size != 16) {
+    int x = (int)random(4);
+    int y = (int)random(4);
+    if(blocks[x][y].number == 0) {
+      blocks[x][y].number = r;
+      size++;
+      draw();
+      break;
+    }
+  }
+  //Generating a random number in the grid, places it in an empty space in the grid. Randomly chosen space. 
 }
-boolean canPlay() {
+boolean canPlay() { //Did the player use up all the space? Is it not possible to combine any further? Create a losing screen.
+//Did the player obtain a value with 2048? Create a winning screen. 
+//Else, keep playing and do nothing.
+for (int i = 0; i < 4; i++) {
+  for (int j = 0; j < 4; j++) {
+    if (blocks[i][j].number == 2048) {
+      //YOU WIN! RETURN TRUE!
+    }
+  }
+}
+  if (size == 16) {
+    //I might just end the game here, YOU LOSE!
+  }
+  
   
 }
 void startgame() {
   if (mousePressed == true && (mouseX > 350 && mouseX < 450) && (mouseY > 350 && mouseY < 450)) {//Need a mousePressed function
     playing = true;
-    //Give option to set grid size, then use an nxn for loop to set the coordinates for
-    //Spaces
+    //This thing is activated when we press the start button, causes game to start.
     
   }
 }
@@ -101,6 +130,7 @@ void keyPressed() { //So that took a damn while
               else if (blocks[a][j].number == blocks[a-1][j].number) {
                 blocks[a-1][j].number *= 2;
                 blocks[a][j].number = 0;
+                size--;
                 draw();
                 break;
               }
@@ -127,6 +157,7 @@ void keyPressed() { //So that took a damn while
               else if (blocks[i][b].number == blocks[i][b+1].number) {
                 blocks[i][b+1].number *= 2;
                 blocks[i][b].number = 0;
+                size--;
                 draw();
                 break;
               }
@@ -153,6 +184,7 @@ void keyPressed() { //So that took a damn while
               else if (blocks[c][j].number == blocks[c+1][j].number) {
                 blocks[c+1][j].number *= 2;
                 blocks[c][j].number = 0;
+                size--;
                 draw();
                 break;
               }
@@ -178,6 +210,7 @@ void keyPressed() { //So that took a damn while
               else if (blocks[i][d-1].number == blocks[i][d].number) {
                 blocks[i][d-1].number *= 2;
                 blocks[i][d].number = 0;
+                size--;
                 draw();
                 break;
               }

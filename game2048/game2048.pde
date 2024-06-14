@@ -1,9 +1,3 @@
-/*
-Bugs:
-These problems belong to draw()
-- New game screen doesn't work properly - sort of fixed now, but not entirely. 
-- Failure and victory screen do not appear properly 
-*/
 
 private int currCounter = 0;
 private int highCounter = 0;
@@ -13,7 +7,7 @@ int lastDir;
 boolean playing;
 boolean victory;
 int size;
-Block[][] blocks = new Block[4][4];
+Block[][] blocks;
 //Let's start with a size at 4x4
 
 void setup() {
@@ -106,7 +100,7 @@ void generateBlock() { //Ought to be completed
   }
   //Generating a random number in the grid, places it in an empty space in the grid. Randomly chosen space. 
 }
-boolean canPlay() { //Did the player use up all the space? Is it not possible to combine any further? Create a losing screen.
+boolean canPlay() { //Did the player use up all the space? Create a losing screen.
 //Did the player obtain a value with 2048? Create a winning screen. 
 //Else, keep playing and do nothing.
   for (int i = 0; i < 4; i++) {
@@ -133,7 +127,7 @@ void startgame() {
     
   }
 }
-void playGame() { //I could use this function instead to work with canPlay()
+void playGame() { 
   if (victory == true) {
     //Congratulations, play again? screen
     fill(255,255,0);
